@@ -12,9 +12,10 @@ public class DeportesConSwitchCase_Victor {
             String temperaturaString = sc.nextLine();
             int temperaturaInt = Integer.parseInt(temperaturaString);
 
+
             switch (temperaturaInt){
 
-                case 1:
+                case :
                     System.out.println("estas dentro del caso 1");
                     break;
                 case 2:
