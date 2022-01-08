@@ -15,7 +15,7 @@ public class DeportesConSwitchCase_Victor {
 
             switch (temperaturaInt){
 
-                case :
+                case 1:
                     System.out.println("estas dentro del caso 1");
                     break;
                 case 2:
