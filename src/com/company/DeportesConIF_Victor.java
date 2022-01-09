@@ -1,4 +1,9 @@
 package com.company;
+/**
+ * @author Victor Navarro
+ * tema 4
+ */
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

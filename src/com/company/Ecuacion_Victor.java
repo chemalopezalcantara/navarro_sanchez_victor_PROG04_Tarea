@@ -1,9 +1,13 @@
 package com.company;
+/**
+ * @author Victor Navarro
+ * tema 4
+ */
 
 import java.util.Scanner;
 
 public class Ecuacion_Victor {
-
+    //atributos y constructores de la clase
     int a, b, c;
 
     public Ecuacion_Victor() {
@@ -49,46 +53,77 @@ public class Ecuacion_Victor {
     //metodos
 
 
+    //metodos para calcular las incognitas
 
-
-
-
-    //excepción discriminante negativo
-    double calcularX1(int a, int b, int c) throws Exception{
-        int x1 = (int) (((b*-1)+Math.sqrt(obtenerDiscriminante()))/(2*a));
+    //se ha modificado el tipo del metodo para devolver tambien el mensaje junto con su valor.
+    double calcularX1(int a, int b, int c) throws ExcepcionDiscriminanteNegativo{
+        double x1 = ((b*-1)+(Math.sqrt(Math.pow(b, 2)+(-4*a*c))))/(2*a);
+        System.out.println("la primera solución de la ecuacion de segundo grado a= " + a + " b= " + b + " c= " + c + " es: ");
         return x1;
+
     }
-    double calcularX2(int a, int b, int c) throws Exception{
-        int x2 = (int) (((b*-1)+Math.sqrt(obtenerDiscriminante()))/(2*a));
+    double calcularX2(int a, int b, int c) throws ExcepcionDiscriminanteNegativo{
+        double x2 = ((b*-1)-(Math.sqrt(Math.pow(b, 2)+(-4*a*c))))/(2*a);
+        System.out.println("la primera solución de la ecuacion de segundo grado a= " + a + " b= " + b + " c= " + c + " es: ");
         return x2;
+
     }
 
-    int obtenerDiscriminante () throws Exception{
-        return (int) (Math.pow(b, 2)-(4*a*c));
+    //metodo para el discriminante negativo:
+    void ExcepcionDiscriminanteNegativo(int a, int b, int c) {
+        try{
+            if ((Math.pow(b,2)+(-4* a * c))>=0){
+                System.out.println("el resultado del discriminante es positivo, puede continuar la ejecución del programa");
+                System.out.println(" ");
+                System.out.println(calcularX1(a, b, c));
+                System.out.println(calcularX2(a, b, c));
+            }else{
+                //lazamos el error personalizado, si el discriminante es negativo
+                throw new ExcepcionDiscriminanteNegativo("EL DISCRIMINANTE ES NEGATIVO: NO HAY SOLUCIONES REALES");
+
+            }//final del else
+
+        }catch (ExcepcionDiscriminanteNegativo error){
+            System.out.println(error.getMessage());
+
+
+        }//final del catch
     }
 
-    //int comprobarDiscriminante (int a, int b, int c) throws ExcepcionDiscriminanteNegativo{
-        //(b2-4*a*c)
-    //}
+    //clase para crear nuestras propias excepciones
+    public class ExcepcionDiscriminanteNegativo extends Exception{
+        public ExcepcionDiscriminanteNegativo(String msg) {
+            super(msg);
+        }
+    }
 
 
 
-    public static void main (String args[]) throws Exception {
+    public static void main (String args[]) throws ExcepcionDiscriminanteNegativo {
 
         Scanner sc = new Scanner(System.in);
+        //capturamos una excepción general como dice el ejercicio
+        try{
+            //pedimos los valores para el constructor
+            System.out.println("Introduce el valor a: ");
+            int a = sc.nextInt();
+            System.out.println("Introduce el valor b: ");
+            int b = sc.nextInt();
+            System.out.println("Introduce el valor c: ");
+            int c = sc.nextInt();
 
-        Ecuacion_Victor ecuacion1 = new Ecuacion_Victor(1, 2, 3);
-        System.out.println("los discriminantes son: " + ecuacion1.calcularX1(1, 2, 3) + " x2: " + ecuacion1.calcularX2(1, 2, 3));
+
+            //instancionamos un objeto de la clase Ecuación_Victor
+            Ecuacion_Victor miEcuacion = new Ecuacion_Victor(a, b, c);
+            miEcuacion.ExcepcionDiscriminanteNegativo(a, b, c);
+        }catch (Exception error){
+            System.out.println("se ha capturado y controlado una excepción ");
+        }//final del catch de la excepción
 
 
+        
 
 
-        //formula raiz cuadradas
-        double x1 = ((b*-1)+(Math.sqrt(Math.pow(b, 2)+(-4*a*c))))/(2*a);
-        System.out.println("incognita1: " + x1);
-
-        double x2 = ((b*-1)-(Math.sqrt(Math.pow(b, 2)+(-4*a*c))))/(2*a);
-        System.out.println("incognita2: " + x2);
 
     }//final del main
 
